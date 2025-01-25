@@ -1,0 +1,31 @@
+Content/__ExternalObjects__/
+Content/__ExternalActors__/
+Content/Characters/
+Content/LevelPrototyping/
+Content/ThirdPerson/
+Content/Megascans/
+Content/MSPresets/
+
+Build
+Binaries/
+Platforms/
+Intermediate/
+Saved/
+
+# JetBrains Rider Generated Files #
+# Cache Directory
+.idea
+
+# Solution and Project Files
+*.sln
+*.csproj
+*.sln.DotSettings
+*.sln.DotSettings.user
+
+# Visual Studio solutions
+/*.sln
+/*.sdf
+/*.opensdf
+/*.suo
+.vs/
+Content/StarterContent/
