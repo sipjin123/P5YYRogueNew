@@ -71,6 +71,7 @@ AProtagonistChar::AProtagonistChar()
 // Called when the game starts or when spawned
 void AProtagonistChar::BeginPlay()
 {
+	UE_LOG(CharacterLog, Warning, TEXT("Protagonist Begin Play -- OPT"));
 	Super::BeginPlay();
 	if (GetOwner())
 	{
