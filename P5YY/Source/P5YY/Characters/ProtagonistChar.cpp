@@ -257,16 +257,19 @@ void AProtagonistChar::Move(const FInputActionValue& Value)
 
 void AProtagonistChar::Look(const FInputActionValue& Value)
 {
-	// input is a Vector2D
-	FVector2D LookAxisVector = Value.Get<FVector2D>();
-
-	if (Controller != nullptr)
+	if (CanControlCamera)
 	{
-		// add yaw and pitch input to controller
-		AddControllerYawInput(LookAxisVector.X);
-		if (CanLookUp)
+		// input is a Vector2D
+		FVector2D LookAxisVector = Value.Get<FVector2D>();
+
+		if (Controller != nullptr)
 		{
-			AddControllerPitchInput(LookAxisVector.Y);
+			// add yaw and pitch input to controller
+			AddControllerYawInput(LookAxisVector.X);
+			if (CanLookUp)
+			{
+				AddControllerPitchInput(LookAxisVector.Y);
+			}
 		}
 	}
 }

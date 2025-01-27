@@ -102,6 +102,9 @@ public:
 		bool CanLookUp;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+		bool CanControlCamera;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 		bool IsAttacking;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Navigation")

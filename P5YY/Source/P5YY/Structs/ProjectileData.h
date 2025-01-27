@@ -14,7 +14,7 @@ struct FProjectileData
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Damage = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float ProjectileSpeed = 1000.0f;
+	float ProjectileSpeed = 2000.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float ProjectileRange = 500.0f;
 	

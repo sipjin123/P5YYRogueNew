@@ -36,13 +36,13 @@ void UACMobilityHandling::RegisterTargetActor(AActor* NewTargetActor)
 	//TargetActor = NewTargetActor;
 	if (NewTargetActor == nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Failed to Register New Target to MobilityComponent"));
+		//UE_LOG(LogTemp, Warning, TEXT("Failed to Register New Target to MobilityComponent"));
 		return;
 	}
 	else
 	{
 #if WITH_EDITOR
-		UE_LOG(LogTemp, Warning, TEXT("Registered New Target to MobilityComponent: %s"), *NewTargetActor->GetActorLabel());
+		//UE_LOG(LogTemp, Warning, TEXT("Registered New Target to MobilityComponent: %s"), *NewTargetActor->GetActorLabel());
 #endif
 	}
 }
