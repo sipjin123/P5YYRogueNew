@@ -69,4 +69,7 @@ public:
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Combat")
 	void AttackEnd(AActor *TargetActor);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Combat")
+	void ApplyDamage(float Damage, AActor *ActorSource);
 };
