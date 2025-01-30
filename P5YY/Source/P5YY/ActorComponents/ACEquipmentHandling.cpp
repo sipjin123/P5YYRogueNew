@@ -33,5 +33,5 @@ void UACEquipmentHandling::TickComponent(float DeltaTime, ELevelTick TickType, F
 }
 
 void UACEquipmentHandling::InitializeComponent() {
-	UE_LOG(LogTemp, Warning, TEXT("Initializing EquipmentComponent"));
+	//UE_LOG(LogTemp, Warning, TEXT("Initializing EquipmentComponent"));
 }

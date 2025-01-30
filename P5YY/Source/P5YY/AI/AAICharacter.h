@@ -17,6 +17,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FAttackEnded);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnEquipWeapon);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnUnequipWeapon);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAIAttributeChange, int, AttributeValue);
 
 UCLASS()
 class P5YY_API AAAICharacter : public ACharacter, public IAbilitySystemInterface
@@ -46,7 +47,7 @@ public:
 		return  AbilitySystemComponent;
 	}
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="GAS", meta = (AllowPrivateAccess="true"))
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadOnly, Category="GAS", meta = (AllowPrivateAccess="true"))
 	const class UBaseAttributeSet* BaseAttributeSet;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
@@ -100,4 +101,18 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	float LockRotationSpeed = 10.0f;;
+	
+	// This callback can be used by the UI.
+	UPROPERTY(BlueprintAssignable, Category = "Attribute callbacks")
+	FAIAttributeChange OnManaChange;
+
+	// The callback to be registered within AbilitySystem.
+	void OnManaUpdated(const FOnAttributeChangeData& Data) const;
+	
+	// This callback can be used by the UI.
+	UPROPERTY(BlueprintAssignable, Category = "Attribute callbacks")
+	FAIAttributeChange OnHealthChange;
+
+	// The callback to be registered within AbilitySystem.
+	void OnHealthUpdated(const FOnAttributeChangeData& Data) const;
 };

@@ -4,6 +4,7 @@
 #include "AAICharacter.h"
 #include "AbilitySystemComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 AAAICharacter::AAAICharacter()
@@ -23,6 +24,9 @@ void AAAICharacter::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("AI Base Attribute Success"));
 		BaseAttributeSet = AbilitySystemComponent->GetSet<UBaseAttributeSet>();
+		
+		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(UBaseAttributeSet::GetManaAttribute()).AddUObject(this, &AAAICharacter::OnManaUpdated);
+		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(UBaseAttributeSet::GetHealthAttribute()).AddUObject(this, &AAAICharacter::OnHealthUpdated);
 	}
 	else
 	{
@@ -63,3 +67,20 @@ void AAAICharacter::SetLockTarget(bool IsLocked, FVector NewTargetLocation)
 	TargetLocation = NewTargetLocation;
 }
 
+void AAAICharacter::OnManaUpdated(const FOnAttributeChangeData& Data) const
+{
+	// Fire the callback. Data contains more than NewValue, in case it is needed.
+	OnManaChange.Broadcast(Data.NewValue);
+}
+
+void AAAICharacter::OnHealthUpdated(const FOnAttributeChangeData& Data) const
+{
+	// Fire the callback. Data contains more than NewValue, in case it is needed.
+	OnHealthChange.Broadcast(Data.NewValue);
+}
+
+void AAAICharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AAAICharacter, BaseAttributeSet);
+}
