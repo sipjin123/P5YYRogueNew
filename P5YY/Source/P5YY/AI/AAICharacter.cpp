@@ -83,4 +83,6 @@ void AAAICharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLif
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(AAAICharacter, BaseAttributeSet);
+	DOREPLIFETIME(AAAICharacter, IsDead);
+	DOREPLIFETIME(AAAICharacter, IsAttacking);
 }

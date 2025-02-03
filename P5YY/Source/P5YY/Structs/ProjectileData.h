@@ -23,7 +23,11 @@ struct FProjectileData
 	int PierceCount = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int BounceCount = 0;
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float BlastRadius = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float CloneCount = 0;
+	
 	// List down targets that have been hit
 	TArray<AActor*> CollidedTargets;
 	

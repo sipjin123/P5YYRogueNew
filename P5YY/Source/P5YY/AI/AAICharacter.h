@@ -57,8 +57,10 @@ public:
 
 	UPROPERTY(BlueprintCallable, BlueprintAssignable)
 	FAttackEnded AttackEnded;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	UPROPERTY(EditAnywhere, Replicated, BlueprintReadWrite, Category = "Combat")
 	bool IsAttacking;
+	UPROPERTY(EditAnywhere, Replicated, BlueprintReadWrite, Category = "Combat")
+	bool IsDead;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	AActor* TargetActor;
