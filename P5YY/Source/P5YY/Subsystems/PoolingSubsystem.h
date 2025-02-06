@@ -20,6 +20,27 @@ public:
 	// ReSharper disable once CppUEBlueprintImplementableEventNotImplemented
 	void InitEventCalledInBlueprint();
 
+	UFUNCTION(BlueprintCallable)
+	void InitializePool();
 protected:
 	virtual void Initialize(FSubsystemCollectionBase& collection) override;
+
+	UFUNCTION(BlueprintCallable)
+	AAProjectile* SpawnPooledObject();
+
+	UPROPERTY(EditAnywhere, Category="ObjectPool")
+	TSubclassOf<class AAProjectile> PooledObjectClass;
+
+	UPROPERTY(EditAnywhere, Category="ObjectPool")
+	int PoolSize = 20;
+	
+	UPROPERTY(EditAnywhere, Category="ObjectPool")
+	float PooledObjectLifeSpan = 2.0f;
+
+	UFUNCTION()
+	void OnPooledObjectDespawned(AAProjectile* PooledActor);
+
+	TArray<AAProjectile*> ObjectPool;
+	
+	TArray<int> SpawnedPoolIndexes;
 };
