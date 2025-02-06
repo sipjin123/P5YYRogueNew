@@ -69,6 +69,43 @@ void AAProjectile::Tick(float DeltaTime)
 	OwnerFaction = NewFaction;
  }
 
+ bool AAProjectile::IsPoolActive()
+ {
+	return Active;
+ }
+
+ void AAProjectile::SetActive(bool IsActive)
+ {
+	Active = IsActive;
+	//SetActorHiddenInGame(!IsActive);
+	if (IsActive)
+	{
+		GetWorldTimerManager().SetTimer(LifeSpanTimer, this, &AAProjectile::DeactivatePoolObject, PoolLifeSpan, false);
+	}
+ }
+
+void AAProjectile::DeactivatePoolObject()
+{
+	Active = false;
+	GetWorldTimerManager().ClearAllTimersForObject(this);
+	OnPooledObjectDespawn.Broadcast(this);
+}
+
+ void AAProjectile::SetPoolIndex(int Index)
+ {
+	PoolIndex = Index;
+ }
+
+ void AAProjectile::SetPoolLifeSpan(float NewLifeSpan)
+ {
+	PoolLifeSpan = NewLifeSpan;
+ }
+
+ int AAProjectile::GetPoolIndex()
+ {
+	return  PoolIndex;
+ }
+
  void AAProjectile::InitializeProjectileVelocity(float NewSpeed, FVector NewVelocity, FVector SpawnPoint, FRotator StartRotator)
 {
 	SetActorLocation(SpawnPoint);

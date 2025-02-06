@@ -5,12 +5,14 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "P5YY/Enums/GameEnums.h"
+#include "P5YY/Interfaces/IProjectile.h"
 #include "AProjectile.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPooledDespawn, AAProjectile*, PoolActor);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FReturnedToOwner);
 
 UCLASS()
-class P5YY_API AAProjectile : public AActor
+class P5YY_API AAProjectile : public AActor, public IIProjectile
 {
 	GENERATED_BODY()
 public:	
@@ -89,4 +91,28 @@ public:
 	// Allows calling teleport event across c++ and BP
 	UPROPERTY(BlueprintCallable, BlueprintAssignable)
 	FReturnedToOwner HasReturnedToOwner; // Can be called via c++ using Broadcast
+
+	UFUNCTION(BlueprintCallable, Category="Pooling")
+	bool IsPoolActive();
+	UFUNCTION(BlueprintCallable, Category="Pooling")
+	void DeactivatePoolObject();
+	UFUNCTION(BlueprintCallable, Category="Pooling")
+	void SetActive(bool IsActive);
+	UFUNCTION(BlueprintCallable, Category="Pooling")
+	void SetPoolIndex(int Index);
+	UFUNCTION(BlueprintCallable, Category="Pooling")
+	void SetPoolLifeSpan(float LifeSpan);
+	UFUNCTION(BlueprintCallable, Category="Pooling")
+	int GetPoolIndex();
+	
+	FTimerHandle LifeSpanTimer;
+	
+	FOnPooledDespawn OnPooledObjectDespawn;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Pooling")
+	int PoolIndex = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Pooling")
+	bool Active;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Pooling")
+	float PoolLifeSpan = 3.0f;
 };
