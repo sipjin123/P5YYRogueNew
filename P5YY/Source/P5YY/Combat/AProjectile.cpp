@@ -6,6 +6,8 @@
 #include "Components/SphereComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Kismet/KismetSystemLibrary.h"
+#include "P5YY/Interfaces/IDamageable.h"
 
  // Sets default values
 AAProjectile::AAProjectile()
@@ -104,6 +106,28 @@ void AAProjectile::DeactivatePoolObject()
  int AAProjectile::GetPoolIndex()
  {
 	return  PoolIndex;
+ }
+
+ ECollisionType AAProjectile::FilterCollision(AActor* CollidedActor)
+ {
+	if (CollidedActor != nullptr)
+	{
+		bool hasCollidedWithOwner = CollidedActor == GetOwner();
+		bool hasHitProjectile = CollidedActor->Implements<UIProjectile>();
+		bool hasHitDamageableTarget = CollidedActor->Implements<UIDamageable>();
+
+		// Can Skip
+		if (hasCollidedWithOwner || hasHitProjectile)
+		{
+			return ECollisionType::Ignore;
+		}
+		if (hasHitDamageableTarget)
+		{
+			return HasAuthority() ? ECollisionType::Process : ECollisionType::Destroy;
+		}
+	}
+	
+	return ECollisionType::Ignore;
  }
 
  void AAProjectile::InitializeProjectileVelocity(float NewSpeed, FVector NewVelocity, FVector SpawnPoint, FRotator StartRotator)

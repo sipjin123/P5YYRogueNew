@@ -115,4 +115,7 @@ public:
 	bool Active;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Pooling")
 	float PoolLifeSpan = 3.0f;
+
+	UFUNCTION(BlueprintCallable, Category="Collision")
+	ECollisionType FilterCollision(AActor* CollidedActor);
 };

@@ -43,6 +43,13 @@ enum class EEnemyType : uint8 {
 	Healer1 = 4  UMETA(DisplayName = "Willow")
 };
 
+UENUM(BlueprintType)
+enum class ECollisionType : uint8 {
+	Ignore = 0 UMETA(DisplayName = "Ignore"),
+	Process = 1 UMETA(DisplayName = "Process"),
+	Destroy = 2 UMETA(DisplayName = "Destroy"),
+};
+
 class P5YY_API GameEnums
 {
 public:
