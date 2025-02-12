@@ -61,6 +61,10 @@ void AAAICharacter::LockOnTargetTick(float DeltaTime)
 		GetActorRotation(), NewRotation, DeltaTime, LockRotationSpeed));
 }
 
+void AAAICharacter::FKillUnit() const
+{
+}
+
 void AAAICharacter::SetLockTarget(bool IsLocked, FVector NewTargetLocation)
 {
 	IsLockingOnTarget = IsLocked;

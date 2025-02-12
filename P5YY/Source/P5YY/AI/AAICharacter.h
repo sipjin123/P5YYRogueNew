@@ -98,6 +98,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Combat")
 	void LockOnTargetTick(float DeltaTime);
 
+	UFUNCTION(BlueprintCallable, Category = "Combat")
+	virtual void FKillUnit() const;
+	
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Combat")
+	void EKillUnit() const;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	bool IsLockingOnTarget;
 	
