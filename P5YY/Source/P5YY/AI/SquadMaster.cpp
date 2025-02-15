@@ -3,6 +3,8 @@
 
 #include "SquadMaster.h"
 
+#include "P5YY/Utility/Observer.h"
+
 
 // Sets default values
 ASquadMaster::ASquadMaster()
@@ -15,12 +17,15 @@ ASquadMaster::ASquadMaster()
 void ASquadMaster::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
 void ASquadMaster::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void ASquadMaster::TestFunc()
+{
 }
 
