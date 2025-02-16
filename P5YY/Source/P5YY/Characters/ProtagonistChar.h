@@ -99,6 +99,9 @@ public:
 	class UDialogueWidgetBase* DialogueBase;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+		bool UseBlueprintControls = false;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 		bool CanLookUp;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
