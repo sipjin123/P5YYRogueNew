@@ -40,4 +40,18 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	int CurrentAmmo;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	int MaxAmmo;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	float ReloadTime = 3.0f;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	AActor* CurrentTarget;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	float TurnRate = 10.0f;
 };
