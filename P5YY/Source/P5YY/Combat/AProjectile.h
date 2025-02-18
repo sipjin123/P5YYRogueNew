@@ -70,8 +70,12 @@ public:
 public:
 	UFUNCTION(BlueprintCallable, Category = "Properties")
 	void InitializeProjectileVelocity(float NewSpeed, FVector NewVelocity, FVector SpawnPoint, FRotator StartRotator);
+
 	UFUNCTION(BlueprintCallable, Category = "Properties")
 	void InitializeProjectile(FVector NewDirection, FVector SpawnPoint, FRotator StartRotator);
+	UFUNCTION(NetMulticast, Reliable, BlueprintCallable, Category = "Properties")
+	void InitializeProjectile_Multicast(FVector NewDirection, FVector SpawnPoint, FRotator StartRotator);
+
 	UFUNCTION(BlueprintCallable, Category = "Properties")
 	void InitializeProjectileTowards(FVector NewTargetLocation, FVector NewDirection, FVector SpawnPoint, FRotator StartRotator);
 protected:

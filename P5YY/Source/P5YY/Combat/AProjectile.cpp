@@ -138,14 +138,20 @@ void AAProjectile::DeactivatePoolObject()
 	ProjectileMovementComponent->Velocity = NewVelocity * NewSpeed;
 }
 
-void AAProjectile::InitializeProjectile(FVector NewDirection, FVector SpawnPoint, FRotator StartRotator)
+ void AAProjectile::InitializeProjectile(FVector NewDirection, FVector SpawnPoint, FRotator StartRotator)
 {
     SetActorLocation(SpawnPoint);
     SetActorRotation(StartRotator);
     ProjectileMovementComponent->Velocity = NewDirection * ProjectileMovementComponent->InitialSpeed;
 }
 
-void AAProjectile::InitializeProjectileTowards(FVector NewTargetLocation, FVector NewDirection, FVector SpawnPoint, FRotator StartRotator)
+ void AAProjectile::InitializeProjectile_Multicast_Implementation(FVector NewDirection, FVector SpawnPoint,
+	 FRotator StartRotator)
+ {
+	InitializeProjectile(NewDirection, SpawnPoint, StartRotator);
+ }
+
+ void AAProjectile::InitializeProjectileTowards(FVector NewTargetLocation, FVector NewDirection, FVector SpawnPoint, FRotator StartRotator)
 {
 	SetActorLocation(SpawnPoint);
 
