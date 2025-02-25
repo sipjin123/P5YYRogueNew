@@ -54,4 +54,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	float TurnRate = 10.0f;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	float SpawnLifespan = 10.0f;
 };
