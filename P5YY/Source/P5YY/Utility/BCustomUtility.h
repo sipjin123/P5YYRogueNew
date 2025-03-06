@@ -15,6 +15,8 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	static FVector GetViewportCamLoc();
+	UFUNCTION(BlueprintCallable, meta = (WorldContext = WorldContextObject))
+	static TArray<AActor*> GetActorsWithinRadius(FVector Origin, float Radius, UObject * WorldContextObject);
 	UFUNCTION(BlueprintCallable)
 	static FRotator GetViewportCamRot();
 	UFUNCTION(BlueprintCallable)
