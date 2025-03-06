@@ -25,6 +25,10 @@ class P5YY_API IIDamageable
 public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Stats")
+	bool IsUnitDead();
+	virtual bool IsUnitDead_Implementation() { return false; }
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Stats")
 	float OnGetCurrentHealth();
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Stats")
 	float OnGetMaxHealth();
