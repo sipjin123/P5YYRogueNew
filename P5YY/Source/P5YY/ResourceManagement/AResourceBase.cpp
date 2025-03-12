@@ -2,6 +2,8 @@
 
 
 #include "AResourceBase.h"
+
+#include "Net/UnrealNetwork.h"
 #include "P5YY/Structs/ResourceActiveData.h"
 
 
@@ -32,3 +34,10 @@ void AAResourceBase::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+void AAResourceBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AAResourceBase, RemainingResource);
+	DOREPLIFETIME(AAResourceBase, ResourceData);
+	DOREPLIFETIME(AAResourceBase, MaxResource);
+}

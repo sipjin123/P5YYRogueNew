@@ -23,8 +23,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class USceneComponent* SceneComponent;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data", Replicated)
 	UResourceActiveData* ResourceData;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data", Replicated)
+	int RemainingResource = 5;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data", Replicated)
+	int MaxResource = 5;
 	
 protected:
 	// Called when the game starts or when spawned
