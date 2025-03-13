@@ -50,6 +50,18 @@ enum class ECollisionType : uint8 {
 	Destroy = 2 UMETA(DisplayName = "Destroy"),
 };
 
+UENUM(BlueprintType)
+enum class EDebugMsgType : uint8 {
+	None = 0 UMETA(DisplayName = "None"),
+	Combat = 1 UMETA(DisplayName = "Combat"),
+	Projectile = 2 UMETA(DisplayName = "Projectile"),
+	AI = 3 UMETA(DisplayName = "AI"),
+	Enemy = 4 UMETA(DisplayName = "Enemy"),
+	Ally = 5 UMETA(DisplayName = "Ally"),
+	Miner = 6 UMETA(DisplayName = "Miner"),
+	Test = 7 UMETA(DisplayName = "Test"),
+};
+
 class P5YY_API GameEnums
 {
 public:
