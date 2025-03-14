@@ -19,7 +19,9 @@ class P5YY_API IIGenericAI
 	GENERATED_BODY()
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
-public:
+	public:
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Combat")
+	void InitializeAILogic();
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Combat")
 	void EquipWeapon();
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Combat")
