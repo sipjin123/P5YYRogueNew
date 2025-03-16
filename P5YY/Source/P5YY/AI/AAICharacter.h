@@ -61,6 +61,10 @@ public:
 	bool IsAttacking;
 	UPROPERTY(EditAnywhere, Replicated, BlueprintReadWrite, Category = "Combat")
 	bool IsDead;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	bool TickAnimation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	bool TickOnAttack;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	AActor* TargetActor;
@@ -116,6 +120,9 @@ public:
 
 	// The callback to be registered within AbilitySystem.
 	void OnManaUpdated(const FOnAttributeChangeData& Data) const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	FVector GetSocketLocation(FName SocketName);
 	
 	// This callback can be used by the UI.
 	UPROPERTY(BlueprintAssignable, Category = "Attribute callbacks")

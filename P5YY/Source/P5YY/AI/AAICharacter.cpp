@@ -42,6 +42,16 @@ void AAAICharacter::Tick(float DeltaTime)
 	{
 		LockOnTargetTick(DeltaTime);
 	}
+
+	if (HasAuthority())
+	{
+		if (TickAnimation || (TickOnAttack && IsAttacking))
+		{
+			GetMesh()->TickAnimation(DeltaTime, false);
+			GetMesh()->RefreshBoneTransforms();
+			GetMesh()->UpdateComponentToWorld();
+		}
+	}
 }
 
 // Called to bind functionality to input
@@ -75,6 +85,47 @@ void AAAICharacter::OnManaUpdated(const FOnAttributeChangeData& Data) const
 {
 	// Fire the callback. Data contains more than NewValue, in case it is needed.
 	OnManaChange.Broadcast(Data.NewValue);
+}
+
+FVector AAAICharacter::GetSocketLocation(FName SocketName)
+{
+	FVector SocketLocation;
+	if (GetWorld()->GetNetMode() == NM_DedicatedServer)
+	{
+		if (!GetMesh()->IsRegistered())
+		{
+			GetMesh()->RegisterComponent();
+		}
+
+		if (GetMesh()->GetAnimInstance())
+		{
+			// Pause animation evaluation but keep the instance active for AI movement
+			GetMesh()->bPauseAnims = true;
+			GetMesh()->GetAnimInstance()->SetRootMotionMode(ERootMotionMode::RootMotionFromMontagesOnly);
+		}
+
+		// Update bone transforms manually (This allows getting the exact coordinates of sockets on a dedicated server without relying on TickAnimation[Which is Costly])
+		GetMesh()->RefreshBoneTransforms();
+		GetMesh()->UpdateComponentToWorld();
+
+		if (GetMesh()->GetAnimInstance())
+		{
+			// Optionally resume animation updates
+			GetMesh()->bPauseAnims = false;
+
+			// NOTE: This will crash the editor due to access violation, if root motion is needed, create a function else where to sync
+			//GetMesh()->GetAnimInstance()->SetRootMotionMode(ERootMotionMode::RootMotionFromEverything);
+		}
+
+		// Get socket location (on both server and client)
+		 SocketLocation = GetMesh()->GetSocketLocation(TEXT("MeleeSocket"));
+
+		// Debug draw for confirmation (only visible on client)
+		#if !UE_BUILD_SHIPPING
+		DrawDebugSphere(GetWorld(), SocketLocation, 10.0f, 12, FColor::Red, false, 1.0f);
+		#endif
+	}
+	return SocketLocation;
 }
 
 void AAAICharacter::OnHealthUpdated(const FOnAttributeChangeData& Data) const
