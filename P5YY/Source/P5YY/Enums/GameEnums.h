@@ -62,6 +62,17 @@ enum class EDebugMsgType : uint8 {
 	Test = 7 UMETA(DisplayName = "Test"),
 };
 
+UENUM(BlueprintType)
+enum class EDebugColor : uint8 {
+	None = 0 UMETA(DisplayName = "None"),
+	Blue = 1,
+	Red = 2,
+	Green = 3,
+	Yellow = 4,
+	Cyan = 5,
+	Black = 6
+};
+
 class P5YY_API GameEnums
 {
 public:
