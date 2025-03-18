@@ -78,7 +78,10 @@ void AProtagonistChar::BeginPlay()
 		RobotUpgradeHandling = GetOwner()->FindComponentByClass<UACRobotUpgradeHandling>();
 		InventoryHandling = GetOwner()->FindComponentByClass<UACInventoryHandling>();
 		EquipmentHandling = GetOwner()->FindComponentByClass<UACEquipmentHandling>();
-		UE_LOG(CharacterLog, Warning, TEXT("Components Finished setting up"));
+		UE_LOG(CharacterLog, Warning, TEXT("Components Finished setting up for Character"));
+	} else
+	{
+		UE_LOG(CharacterLog, Warning, TEXT("Failed Finished setting up for Character"));
 	}
 	
 	//Add Input Mapping Context
@@ -375,6 +378,21 @@ void AProtagonistChar::AssignLockTarget(AActor* NewTargetActor)
 	UE_LOG(CharacterLog, Warning, TEXT("Registered New Target to Protagonist: %s"), *NewTargetActor->GetActorLabel());
 #endif
 	TargetActor = NewTargetActor;
+}
+
+void AProtagonistChar::InitializeCustomComponents()
+{
+	if (GetOwner())
+	{
+		MobilityHandling = GetOwner()->FindComponentByClass<UACMobilityHandling>();
+		RobotUpgradeHandling = GetOwner()->FindComponentByClass<UACRobotUpgradeHandling>();
+		InventoryHandling = GetOwner()->FindComponentByClass<UACInventoryHandling>();
+		EquipmentHandling = GetOwner()->FindComponentByClass<UACEquipmentHandling>();
+		UE_LOG(CharacterLog, Warning, TEXT("Components Finished setting up for Character"));
+	} else
+	{
+		UE_LOG(CharacterLog, Warning, TEXT("Failed Finished setting up for Character"));
+	}
 }
 
 void AProtagonistChar::OnManaUpdated(const FOnAttributeChangeData& Data) const

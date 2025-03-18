@@ -116,6 +116,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int32 TestID;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 CurrentAbilitySelected;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
 		AActor* InteractedActor;
 
@@ -139,6 +142,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Group1")
 		void AssignLockTarget(AActor* NewTargetActor);
+
+	UFUNCTION(BlueprintCallable, Category = "Group1")
+		void InitializeCustomComponents();
 
 	UFUNCTION(BlueprintCallable, Category = "Group1")
 		void UpdateEquipmentHandling();
