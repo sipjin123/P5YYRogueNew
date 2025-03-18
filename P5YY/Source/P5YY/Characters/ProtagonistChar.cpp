@@ -87,7 +87,10 @@ void AProtagonistChar::BeginPlay()
 		check(PlayerController);
 		PlayerHUD = CreateWidget<UPlayerStatWidget>(PlayerController, PlayerHUDClass);
 		check(PlayerHUD);
-		PlayerHUD->AddToPlayerScreen();
+
+		//PlayerHUD->AddToPlayerScreen();
+		UE_LOG(CharacterLog, Warning, TEXT("Disabled PlayerHUD in Character"));
+
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
