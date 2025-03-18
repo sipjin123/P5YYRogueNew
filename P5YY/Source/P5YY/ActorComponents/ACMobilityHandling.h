@@ -42,6 +42,8 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	void InitializeComponent();
+
+	UFUNCTION(BlueprintCallable)
 	void RegisterTargetActor(AActor* NewTargetActor);
 	
 	UFUNCTION(Server, Reliable, BlueprintCallable, Category = "Properties")
