@@ -491,6 +491,7 @@ void AProtagonistChar::InitializeCustomComponents()
 	}
 }
 
+#pragma region Attribute Change Broadcast
 void AProtagonistChar::OnManaUpdated(const FOnAttributeChangeData& Data) const
 {
 	// Fire the callback. Data contains more than NewValue, in case it is needed.
@@ -502,3 +503,4 @@ void AProtagonistChar::OnHealthUpdated(const FOnAttributeChangeData& Data) const
 	// Fire the callback. Data contains more than NewValue, in case it is needed.
 	OnHealthChange.Broadcast(Data.NewValue);
 }
+#pragma endregion

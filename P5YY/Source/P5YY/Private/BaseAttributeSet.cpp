@@ -2,7 +2,10 @@
 
 
 #include "BaseAttributeSet.h"
+#include "GameplayEffectExtension.h"
+#include "GameFramework/Character.h"
 #include "Net/UnrealNetwork.h"
+#include "P5YY/Characters/ProtagonistChar.h"
 
 UBaseAttributeSet::UBaseAttributeSet()
 {
