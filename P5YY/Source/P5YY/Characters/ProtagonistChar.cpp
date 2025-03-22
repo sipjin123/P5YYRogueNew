@@ -235,6 +235,20 @@ void AProtagonistChar::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 			EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AProtagonistChar::Look);
 		}
 	}
+
+	// Remove redundancy later
+	if (AbilitySystemComponent && InputComponent)
+	{
+		const FGameplayAbilityInputBinds Binds(
+					"Confirm", 
+					"Cancel", 
+					"ERogueAbilityInputID",
+					static_cast<int32>(ERogueAbilityInputID::Confirm),
+					static_cast<int32>(ERogueAbilityInputID::Cancel)
+			);
+		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, Binds);
+	}
+}
 }
 
 void AProtagonistChar::Move(const FInputActionValue& Value)
