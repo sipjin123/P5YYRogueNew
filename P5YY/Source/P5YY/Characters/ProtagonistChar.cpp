@@ -24,8 +24,10 @@
 #include "BaseAttributeSet.h"
 #include "Components/SphereComponent.h"
 #include "Net/UnrealNetwork.h"
+#include "P5YY/Abilities/RogueGameplayAbility.h"
 #include "P5YY/ActorComponents/ACInventoryHandling.h"
 #include "P5YY/ActorComponents/ACRobotUpgradeHandling.h"
+#include "P5YY/Core/RogueData.h"
 #include "P5YY/Enums/PlayerActionState.h"
 #include "P5YY/Interfaces/IInteractable.h"
 
@@ -34,6 +36,8 @@ DEFINE_LOG_CATEGORY(CharacterLog);
 // Sets default values
 AProtagonistChar::AProtagonistChar()
 {
+	bAbilitiesInitialized = false;
+	
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
