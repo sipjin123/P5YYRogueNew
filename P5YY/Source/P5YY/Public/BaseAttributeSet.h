@@ -20,7 +20,20 @@ class P5YY_API UBaseAttributeSet : public UAttributeSet
 public:
 	UBaseAttributeSet();
 
-	//virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	// Called before attribute is changed
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+	
+	// To Check if died
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
+
+	// For proportional adjustment, example if max health adjusts
+	void AdjustAttributeForMaxChange(
+		const FGameplayAttributeData& AffectedAttribute,
+		const FGameplayAttributeData& MaxAttribute,
+		float NewMaxValue,
+		const FGameplayAttribute& AffectedAttributeProperty) const;
 	
 	//UFUNCTION()
 	//virtual void OnRep_Health(const FGameplayAttributeData& OldHealth);
