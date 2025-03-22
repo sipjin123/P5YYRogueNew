@@ -54,6 +54,46 @@ void UBaseAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, 
 	}
 }
 
+void UBaseAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
+{
+	Super::PostGameplayEffectExecute(Data);
+
+	// This is a wrapper for "FGameplayEffectContext" which tracks: Source/Target actors and (location,hitresult,etc)
+	FGameplayEffectContextHandle Context = Data.EffectSpec.GetContext();
+	UAbilitySystemComponent* Source = Context.GetOriginalInstigatorAbilitySystemComponent();
+
+	// This retrieves all active gameplay tags on actor including (buffs/debuffs/status effects)
+	const FGameplayTagContainer& SourceTags = *Data.EffectSpec.CapturedSourceTags.GetAggregatedTags();
+
+	// This handles the custom values of a gameplay effect such as Add health or Deduct Health
+	float DeltaVal {0.5f};
+	if (Data.EvaluatedData.ModifierOp == EGameplayModOp::Additive)
+	{
+		DeltaVal = Data.EvaluatedData.Magnitude;
+	}
+
+	AProtagonistChar* TargetCharacter {nullptr};
+
+	// Target and Source validity Check
+	if (Data.Target.AbilityActorInfo.IsValid() && Data.Target.AbilityActorInfo.IsValid())
+	{
+		// Assign the target character using Data Target
+		AActor* TargetActor {nullptr};
+		TargetActor = Data.Target.AbilityActorInfo->AvatarActor.Get();
+		TargetCharacter = Cast<AProtagonistChar>(TargetActor);
+	}
+
+	// Check if we are modifying the health
+	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
+		if (TargetCharacter)
+		{
+			TargetCharacter->HandleHealthChange(DeltaVal, SourceTags);
+		}
+	}
+}
+
 void UBaseAttributeSet::AdjustAttributeForMaxChange(const FGameplayAttributeData& AffectedAttribute,
 	const FGameplayAttributeData& MaxAttribute, float NewMaxValue,
 	const FGameplayAttribute& AffectedAttributeProperty) const
