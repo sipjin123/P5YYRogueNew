@@ -249,6 +249,40 @@ void AProtagonistChar::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, Binds);
 	}
 }
+
+void AProtagonistChar::StartupGameplayAbilities()
+{
+	check (AbilitySystemComponent);
+
+	if (GetLocalRole() == ROLE_Authority && !bAbilitiesInitialized)
+	{
+		// Grant active abilities only for the server
+		for (TSubclassOf<URogueGameplayAbility>& StartupAbilityEntry : RogueGameplayAbilities)
+		{
+			AbilitySystemComponent->GiveAbility(
+				FGameplayAbilitySpec(StartupAbilityEntry, 1,
+				static_cast<int32>(StartupAbilityEntry.GetDefaultObject()->AbilityInputId), this));
+		}
+
+		// Grant passive abilities only for the server
+		for (TSubclassOf<UGameplayEffect>& StartupEffectEntry : PassiveGameplayEffects)
+		{
+			// Wrapper around effect context so all info is allowed to be replicated and polymorphic
+			FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
+			EffectContext.AddSourceObject(this);
+
+			FGameplayEffectSpecHandle NewHandle = AbilitySystemComponent->MakeOutgoingSpec(
+				StartupEffectEntry, 1, EffectContext);
+
+			if (NewHandle.IsValid())
+			{
+				FActiveGameplayEffectHandle ActiveGameplayEffectHandle =
+					AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent);
+			}
+		}
+
+		bAbilitiesInitialized = true;
+	}
 }
 
 void AProtagonistChar::Move(const FInputActionValue& Value)
