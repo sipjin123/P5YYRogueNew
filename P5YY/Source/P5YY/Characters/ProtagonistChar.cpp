@@ -370,6 +370,17 @@ void AProtagonistChar::LockTarget() {
 	}
 }
 
+void AProtagonistChar::HandleDamage(float DamageAmount, const FHitResult& HitInfo,
+	const FGameplayTagContainer& DamageTags, ACharacter* InstigatorCharacter, AActor* DamageCauser)
+{
+	OnAbilityDamage(DamageAmount, HitInfo, DamageTags, InstigatorCharacter, DamageCauser);
+}
+
+void AProtagonistChar::HandleHealthChange(float DeltaVal, const FGameplayTagContainer& EventTags)
+{
+	OnHealthChanged(DeltaVal, EventTags);
+}
+
 void AProtagonistChar::NetTeleport_Implementation(FVector newLoc)
 {
 	UE_LOG(CharacterLog, Warning, TEXT("ShouldTeleport"));
