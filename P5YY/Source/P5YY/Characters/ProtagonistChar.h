@@ -156,6 +156,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void ToggleDialogueScene(bool IsEnabled);
 protected:
+
+	// Overrides
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
+	
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 
