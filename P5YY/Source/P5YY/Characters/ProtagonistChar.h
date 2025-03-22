@@ -186,6 +186,17 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="GAS", meta = (AllowPrivateAccess="true"))
 	const class UBaseAttributeSet* BaseAttributeSet;
 
+	// Advanced GAS and Attrib
+	//------------------------------
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnAbilityDamage (float DamageAmount, const FHitResult& HitInfo, const struct FGameplayTagContainer& DamageTags, ACharacter* InstigatorCharacter, AActor* DamageCauser);
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnHealthChanged (float DeltaVal, const struct FGameplayTagContainer& EventTags);
+
+	virtual void HandleDamage (float DamageAmount, const FHitResult& HitInfo, const struct FGameplayTagContainer& DamageTags, ACharacter* InstigatorCharacter, AActor* DamageCauser);
+	virtual void HandleHealthChange (float DeltaVal, const struct FGameplayTagContainer& EventTags);
+
 public:
 	// Allows calling teleport event across c++ and BP
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "NetworkCombat")
