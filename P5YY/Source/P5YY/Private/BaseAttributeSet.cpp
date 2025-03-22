@@ -37,6 +37,39 @@ void UBaseAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 	DOREPLIFETIME_CONDITION_NOTIFY(UBaseAttributeSet, MaxHealth, COND_None, REPNOTIFY_OnChanged);
 	DOREPLIFETIME_CONDITION_NOTIFY(UBaseAttributeSet, MaxMana, COND_None, REPNOTIFY_OnChanged);
 }
+
+void UBaseAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
+{
+	Super::PreAttributeChange(Attribute, NewValue);
+
+	if (Attribute == GetMaxHealthAttribute())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Max Health has been proportionally adjusted and logged"));
+		
+		// Adjust the health proportional to the max health
+		AdjustAttributeForMaxChange(Health, MaxHealth, NewValue, GetHealthAttribute());
+	}
+}
+
+void UBaseAttributeSet::AdjustAttributeForMaxChange(const FGameplayAttributeData& AffectedAttribute,
+	const FGameplayAttributeData& MaxAttribute, float NewMaxValue,
+	const FGameplayAttribute& AffectedAttributeProperty) const
+{
+	// Cache component and attribute values
+	UAbilitySystemComponent* AbilityCompRef = GetOwningAbilitySystemComponent();
+	const float CurrentMaxValue = MaxAttribute.GetCurrentValue();
+	const float CurrentValue = AffectedAttribute.GetCurrentValue();
+
+	if(!FMath::IsNearlyEqual(CurrentMaxValue, NewMaxValue) && AbilityCompRef)
+	{
+		const float NewDelta = (CurrentMaxValue > 0.f)
+			? (CurrentValue * (NewMaxValue/CurrentMaxValue)) - CurrentValue
+			: NewMaxValue;
+
+		AbilityCompRef->ApplyModToAttributeUnsafe(AffectedAttributeProperty, EGameplayModOp::Additive, NewDelta);
+	}
+}
+
 /*
 void UBaseAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
