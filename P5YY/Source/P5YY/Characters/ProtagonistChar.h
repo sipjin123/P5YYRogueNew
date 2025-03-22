@@ -175,6 +175,9 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Group1")
 	void SpawnProjectileAt(FVector newSpawnPt);
 
+	/**
+	 * Ability System Dependencies
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="GAS", meta = (AllowPrivateAccess="true"))
 	class UAbilitySystemComponent* AbilitySystemComponent;
 
@@ -185,6 +188,18 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="GAS", meta = (AllowPrivateAccess="true"))
 	const class UBaseAttributeSet* BaseAttributeSet;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="GAS", meta = (AllowPrivateAccess="true"))
+	TObjectPtr<UBaseAttributeSet> AttributeSet;
+
+	UPROPERTY(EditDefaultsOnly, Category="GAS")
+	TArray<TSubclassOf<UGameplayEffect>> PassiveGameplayEffects;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category="GAS")
+	TArray<TSubclassOf<URogueGameplayAbility>> RogueGameplayAbilities;
+
+	UPROPERTY()
+	uint8 bAbilitiesInitialized = 1;//1 bit
 
 	// Advanced GAS and Attrib
 	//------------------------------
@@ -197,6 +212,8 @@ protected:
 	virtual void HandleDamage (float DamageAmount, const FHitResult& HitInfo, const struct FGameplayTagContainer& DamageTags, ACharacter* InstigatorCharacter, AActor* DamageCauser);
 	virtual void HandleHealthChange (float DeltaVal, const struct FGameplayTagContainer& EventTags);
 
+	friend UBaseAttributeSet;
+	//------------------------------
 public:
 	// Allows calling teleport event across c++ and BP
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "NetworkCombat")
@@ -211,6 +228,7 @@ protected:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	virtual void StartupGameplayAbilities();
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
