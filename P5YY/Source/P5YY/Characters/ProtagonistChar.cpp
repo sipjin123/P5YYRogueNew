@@ -70,6 +70,9 @@ AProtagonistChar::AProtagonistChar()
 
 	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+
+	AttributeSet = CreateDefaultSubobject<UBaseAttributeSet>(TEXT("Attributes"));	
 }
 
 // Called when the game starts or when spawned
@@ -355,6 +358,36 @@ void AProtagonistChar::ToggleDialogueScene(bool IsEnabled)
 		{
 			DialogueBase->RemoveFromParent();
 		}
+	}
+}
+
+void AProtagonistChar::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	// Server Side GAS init
+	if (AbilitySystemComponent)
+	{
+		AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	}
+}
+
+void AProtagonistChar::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+
+	// Client Side GAS init
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	if (AbilitySystemComponent && InputComponent)
+	{
+		const FGameplayAbilityInputBinds Binds(
+					"Confirm", 
+					"Cancel", 
+					"ERogueAbilityInputID",
+					static_cast<int32>(ERogueAbilityInputID::Confirm),
+					static_cast<int32>(ERogueAbilityInputID::Cancel)
+			);
+		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, Binds);
 	}
 }
 
