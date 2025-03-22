@@ -22,6 +22,10 @@
 DECLARE_LOG_CATEGORY_EXTERN(CharacterLog, Log, All);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAttributeChange, int, AttributeValue);
 
+// Forward Declaration
+class URogueAbilitySystemComponent;
+class URogueGameplayAbility;
+
 UCLASS()
 class P5YY_API AProtagonistChar : public ACharacter, public  IAbilitySystemInterface
 {
