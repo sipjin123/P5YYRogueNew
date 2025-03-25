@@ -22,7 +22,10 @@ void AAAICharacter::BeginPlay()
 	
 	if (IsValid(AbilitySystemComponent))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AI Base Attribute Success"));
+		if (GetLocalRole() == ROLE_Authority)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("AI Base Attribute Success"));
+		}
 		BaseAttributeSet = AbilitySystemComponent->GetSet<UBaseAttributeSet>();
 		
 		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(UBaseAttributeSet::GetManaAttribute()).AddUObject(this, &AAAICharacter::OnManaUpdated);
@@ -30,7 +33,10 @@ void AAAICharacter::BeginPlay()
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AI Base Attribute Fail"));
+		if (GetLocalRole() == ROLE_Authority)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("AI Base Attribute Fail"));
+		}
 	}
 }
 

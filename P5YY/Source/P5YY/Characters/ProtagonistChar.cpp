@@ -85,10 +85,6 @@ void AProtagonistChar::BeginPlay()
 		RobotUpgradeHandling = GetOwner()->FindComponentByClass<UACRobotUpgradeHandling>();
 		InventoryHandling = GetOwner()->FindComponentByClass<UACInventoryHandling>();
 		EquipmentHandling = GetOwner()->FindComponentByClass<UACEquipmentHandling>();
-		UE_LOG(CharacterLog, Warning, TEXT("Components Finished setting up for Character"));
-	} else
-	{
-		UE_LOG(CharacterLog, Warning, TEXT("Failed Finished setting up for Character"));
 	}
 	
 	//Add Input Mapping Context
@@ -107,7 +103,10 @@ void AProtagonistChar::BeginPlay()
 		}
 	} else
 	{
-		UE_LOG(CharacterLog, Error, TEXT("Failed to Find Player Controller"));
+		if (GetLocalRole() == ROLE_AutonomousProxy)
+		{
+			UE_LOG(CharacterLog, Error, TEXT("Failed to Find Player Controller"));
+		}
 	}
 
 	if (IsValid(AbilitySystemComponent))
@@ -485,10 +484,6 @@ void AProtagonistChar::InitializeCustomComponents()
 		RobotUpgradeHandling = GetOwner()->FindComponentByClass<UACRobotUpgradeHandling>();
 		InventoryHandling = GetOwner()->FindComponentByClass<UACInventoryHandling>();
 		EquipmentHandling = GetOwner()->FindComponentByClass<UACEquipmentHandling>();
-		UE_LOG(CharacterLog, Warning, TEXT("Components Finished setting up for Character"));
-	} else
-	{
-		UE_LOG(CharacterLog, Warning, TEXT("Failed Finished setting up for Character"));
 	}
 }
 
