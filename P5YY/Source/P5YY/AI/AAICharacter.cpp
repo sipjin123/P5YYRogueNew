@@ -134,6 +134,24 @@ void AAAICharacter::OnHealthUpdated(const FOnAttributeChangeData& Data) const
 	OnHealthChange.Broadcast(Data.NewValue);
 }
 
+float AAAICharacter::OnGetCurrentHealth_Implementation()
+{
+	if (BaseAttributeSet)
+	{
+		return  BaseAttributeSet->Health.GetBaseValue();
+	}
+	return 0.f;
+}
+
+float AAAICharacter::OnGetMaxHealth_Implementation()
+{
+	if (BaseAttributeSet)
+	{
+		return  BaseAttributeSet->MaxHealth.GetBaseValue();
+	}
+	return 100.f;
+}
+
 void AAAICharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);

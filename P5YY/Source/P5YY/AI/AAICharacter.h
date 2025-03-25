@@ -7,6 +7,8 @@
 #include "AbilitySystemInterface.h"
 #include "P5YY/Data/CombatUnitData.h"
 #include "P5YY/Enums/GameEnums.h"
+#include "P5YY/Interfaces/IDamageable.h"
+#include "P5YY/Interfaces/IGenericAI.h"
 #if PLATFORM_MAC
 #include "BaseAttributeSet.h"
 #elif !PLATFORM_MAC
@@ -20,7 +22,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnUnequipWeapon);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAIAttributeChange, int, AttributeValue);
 
 UCLASS()
-class P5YY_API AAAICharacter : public ACharacter, public IAbilitySystemInterface
+class P5YY_API AAAICharacter : public ACharacter, public IAbilitySystemInterface, public IIDamageable, public IIGenericAI
 {
 	GENERATED_BODY()
 
@@ -130,4 +132,7 @@ public:
 
 	// The callback to be registered within AbilitySystem.
 	void OnHealthUpdated(const FOnAttributeChangeData& Data) const;
+
+	virtual float OnGetCurrentHealth_Implementation() override;
+	virtual float OnGetMaxHealth_Implementation() override;
 };
