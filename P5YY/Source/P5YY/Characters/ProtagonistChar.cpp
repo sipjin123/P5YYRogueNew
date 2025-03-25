@@ -242,7 +242,7 @@ void AProtagonistChar::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 		const FGameplayAbilityInputBinds Binds(
 					"Confirm", 
 					"Cancel", 
-					"ERogueAbilityInputID",
+					"/Script/P5YY.ERogueAbilityInputID",//"ERogueAbilityInputID", Fixes Error: {Short type name provided for TryFindType}
 					static_cast<int32>(ERogueAbilityInputID::Confirm),
 					static_cast<int32>(ERogueAbilityInputID::Cancel)
 			);
@@ -254,7 +254,7 @@ void AProtagonistChar::StartupGameplayAbilities()
 {
 	check (AbilitySystemComponent);
 
-	if (GetLocalRole() == ROLE_Authority && !bAbilitiesInitialized)
+	if (GetLocalRole() == ROLE_Authority && !bAbilitiesInitialized && RogueGameplayAbilities.Num() > 0)
 	{
 		// Grant active abilities only for the server
 		for (TSubclassOf<URogueGameplayAbility>& StartupAbilityEntry : RogueGameplayAbilities)
@@ -417,6 +417,7 @@ void AProtagonistChar::PossessedBy(AController* NewController)
 	if (AbilitySystemComponent)
 	{
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
+		StartupGameplayAbilities();
 	}
 }
 
@@ -431,7 +432,7 @@ void AProtagonistChar::OnRep_PlayerState()
 		const FGameplayAbilityInputBinds Binds(
 					"Confirm", 
 					"Cancel", 
-					"ERogueAbilityInputID",
+					"/Script/P5YY.ERogueAbilityInputID",//"ERogueAbilityInputID", Fixes Error: {Short type name provided for TryFindType}
 					static_cast<int32>(ERogueAbilityInputID::Confirm),
 					static_cast<int32>(ERogueAbilityInputID::Cancel)
 			);
