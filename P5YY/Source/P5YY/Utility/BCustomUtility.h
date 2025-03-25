@@ -21,4 +21,7 @@ public:
 	static FRotator GetViewportCamRot();
 	UFUNCTION(BlueprintCallable)
 	static FVector GetViewportForwardVector(FRotator NewRotator);
+
+	UFUNCTION(BlueprintCallable)
+	static void ApplyForceToTarget(const FVector FromLoc, const ACharacter* TargetCharacter, const float AttackForce);
 };

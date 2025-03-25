@@ -5,6 +5,8 @@
 #endif
 
 #include "Engine/OverlapResult.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 
 
@@ -97,4 +99,18 @@ FRotator UBCustomUtility::GetViewportCamRot()
 FVector UBCustomUtility::GetViewportForwardVector(FRotator NewRotator)
 {
 	return UKismetMathLibrary::GetForwardVector(NewRotator);
+}
+
+void UBCustomUtility::ApplyForceToTarget(const FVector FromLoc, const ACharacter* ACharacter, const float AttackForce)
+{
+	if (IsValid(ACharacter))
+	{
+		const FVector TargetLocation = ACharacter->GetActorLocation();
+		const FVector Direction = UKismetMathLibrary::GetDirectionUnitVector(FromLoc, TargetLocation);
+
+		ACharacter->GetCharacterMovement()->Launch(FVector(
+			Direction.X * AttackForce,
+			Direction.Y * AttackForce,
+			abs(Direction.Z + 1) * AttackForce));
+	}
 }
