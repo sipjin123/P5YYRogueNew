@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "P5YY/Core/RogueEventManager.h"
 #include "BCustomUtility.generated.h"
 
 
@@ -24,4 +25,15 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	static void ApplyForceToTarget(const FVector FromLoc, const ACharacter* TargetCharacter, const float AttackForce);
+
+	UFUNCTION(BlueprintCallable, Category = "Events")
+    static void OnPrintDevText(EDebugMsgType MessageType, FString Message)
+    {
+        URogueEventManager::Get()->OnPrintDevText.Broadcast(Message, MessageType);
+    }
+	UFUNCTION(BlueprintCallable, Category = "Events")
+	static void OnPrintWorldText(FVector Location, EDebugColor ColorType, FString Message)
+	{
+		URogueEventManager::Get()->OnPrintWorldText.Broadcast(Message, ColorType, Location);
+	}
 };
