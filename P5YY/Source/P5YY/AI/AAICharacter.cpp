@@ -19,6 +19,8 @@ AAAICharacter::AAAICharacter()
 void AAAICharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	SpawnPosition = GetActorLocation();
 	
 	if (IsValid(AbilitySystemComponent))
 	{

@@ -73,6 +73,8 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	FVector TargetLocation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	FVector SpawnPosition;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	float MeleeRadius;
