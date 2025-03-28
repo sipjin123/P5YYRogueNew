@@ -2,16 +2,14 @@
 
 
 #include "STTGetRandomPatrolLocation.h"
-
 #include "AIController.h"
 #include "NavigationSystem.h"
+#include "Navigation/PathFollowingComponent.h"
 #include "P5YY/AI/AAICharacter.h"
 
 EStateTreeRunStatus USTTGetRandomPatrolLocation::EnterState(FStateTreeExecutionContext& Context,
                                                             const FStateTreeTransitionResult& Transition)
 {
-	OnMoveCompletedDelegate.BindUFunction(this, "OnMoveCompleted");
-	
 	AActor* actor = GetOwnerActor(Context);
 	AAAICharacter* pawn = Cast<AAAICharacter>(actor);
 
@@ -23,11 +21,11 @@ EStateTreeRunStatus USTTGetRandomPatrolLocation::EnterState(FStateTreeExecutionC
 	AAIController* aiController = Cast<AAIController>(pawn->Controller);
 	EPathFollowingRequestResult::Type requestResult = aiController->MoveToLocation(NavLocation.Location, AcceptanceRadius, false);
 
-	aiController->ReceiveMoveCompleted.AddUnique(OnMoveCompletedDelegate);
+	aiController->ReceiveMoveCompleted.AddDynamic(this, &USTTGetRandomPatrolLocation::OnMoveCompleted);
 	return EStateTreeRunStatus::Running;
 }
 
-void USTTGetRandomPatrolLocation::OnMoveCompleted()
+void USTTGetRandomPatrolLocation::OnMoveCompleted(FAIRequestID RequestID, EPathFollowingResult::Type Result)
 {
 	FinishTask();
 }

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/StateTreeTaskBlueprintBase.h"
+#include "Navigation/PathFollowingComponent.h"
 #include "UObject/ScriptDelegates.h"
 #include "STTGetRandomPatrolLocation.generated.h"
 
@@ -17,15 +18,13 @@ class P5YY_API USTTGetRandomPatrolLocation : public UStateTreeTaskBlueprintBase
 	
 protected:
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Input")
 	float PatrolRadius;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Input")
 	float AcceptanceRadius;
-	
-	TScriptDelegate<UE::Core::Private::TScriptDelegateTraits<FWeakObjectPtr>::ThreadSafetyMode> OnMoveCompletedDelegate;
 
 	virtual EStateTreeRunStatus EnterState(FStateTreeExecutionContext& Context, const FStateTreeTransitionResult& Transition) override;
 
 	UFUNCTION()
-	void OnMoveCompleted();
+	void OnMoveCompleted(FAIRequestID RequestID, EPathFollowingResult::Type Result);
 };
