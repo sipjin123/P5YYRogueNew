@@ -22,7 +22,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 		class UBehaviorTreeComponent* BehaviorTreeComponent;
-
+ 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 		class UBehaviorTree * BehaviorTree;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
+		class UAIPerceptionComponent * AIPerceptionComponent;
 };
