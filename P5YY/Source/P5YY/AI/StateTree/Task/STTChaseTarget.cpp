@@ -75,7 +75,7 @@ EStateTreeRunStatus USTTChaseTarget::EnterState(FStateTreeExecutionContext& Cont
 	if(distance < StrafeRadius)
 	{
 		UE_LOG(LogTemp, Log, TEXT("CHASE COMPLETED"));
-		FinishTask();
+		return EStateTreeRunStatus::Succeeded;
 	}
 
 	ReturningToPatrol = false;
@@ -85,7 +85,7 @@ EStateTreeRunStatus USTTChaseTarget::EnterState(FStateTreeExecutionContext& Cont
 	if(!IsValid(CastedActor))
 	{
 		UE_LOG(LogTemp, Log, TEXT("CHASE failed"));
-		FinishTask(false);
+		return EStateTreeRunStatus::Failed;
 	}
 
 	GetDistanceFromOrigin();
