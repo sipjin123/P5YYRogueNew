@@ -15,6 +15,7 @@ enum class EItemRarity : uint8
 UENUM()
 enum class EItemType : uint8
 {
+	None UMETA(DisplayName = "None"),
 	Weapon UMETA(DisplayName = "Weapon"),
 	Armor UMETA(DisplayName = "Armor"),
 	Trinket UMETA(DisplayName = "Trinket"),
@@ -31,11 +32,11 @@ struct FItemStats
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, Category="Stats")
-	int32 StatValue;
+	int32 StatValue = 0;
 	UPROPERTY(EditAnywhere, Category="Stats")
-	int32 Durability;
+	int32 Durability = 0;
 	UPROPERTY(EditAnywhere, Category="Stats")
-	float SellPrice;
+	float SellPrice = 0;
 };
 
 USTRUCT()
@@ -44,9 +45,9 @@ struct FItemAssetData
 	GENERATED_BODY()
 	
 	UPROPERTY(EditAnywhere, Category="Asset")
-	UTexture2D* Icon;
+	UTexture2D* Icon = nullptr;
 	UPROPERTY(EditAnywhere, Category="Asset")
-	UStaticMesh* Mesh;
+	UStaticMesh* Mesh = nullptr;
 };
 
 USTRUCT()
@@ -55,13 +56,13 @@ struct FItemStorageInfo
 	GENERATED_BODY()
 	
 	UPROPERTY(EditAnywhere, Category="Storage")
-	int32 SlotsOccupied;
+	int32 SlotsOccupied = 0;
 	UPROPERTY(EditAnywhere, Category="Storage")
-	float Weight;
+	float Weight = 0;
 	UPROPERTY(EditAnywhere, Category="Storage")
-	bool IsStackable;
+	bool IsStackable = false;
 	UPROPERTY(EditAnywhere, Category="Storage")
-	int32 MaxStackSize;
+	int32 MaxStackSize = 0;
 };
 
 USTRUCT()
@@ -86,16 +87,16 @@ struct FItemData : public FTableRowBase
 	//Generated_UStruct_Body()
 
 	UPROPERTY(VisibleAnywhere, Category="Item Data")
-	int32 Id;
+	int32 Id = 0;
 	UPROPERTY(EditAnywhere, Category="Item Data", meta=(UIMin=1, UIMax=100))
-	int32 Quantity;
+	int32 Quantity = 0;
 
 	UPROPERTY(EditAnywhere, Category="Item Data")
-	EItemRarity ItemRarity;
+	EItemRarity ItemRarity = EItemRarity::Common;
 	UPROPERTY(VisibleAnywhere, Category="Item Data")
 	FItemTextData ItemTextData;
 	UPROPERTY(EditAnywhere, Category="Item Data")
-	EItemType ItemType;
+	EItemType ItemType = EItemType::None;
 	UPROPERTY(VisibleAnywhere, Category="Item Data")
 	FItemStats ItemStats;
 	UPROPERTY(VisibleAnywhere, Category="Item Data")

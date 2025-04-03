@@ -19,19 +19,19 @@ struct FWeaponData : public FTableRowBase
 	FText Description;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	float BaseDamage;
+	float BaseDamage = 0;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	float Ammo;
+	float Ammo = 0;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	float Durability;
+	float Durability = 0;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	float RateOfFire;
+	float RateOfFire = 0;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	ProjectileType ProjectileType;
+	ProjectileType ProjectileType = ProjectileType::None;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSoftObjectPtr<UStaticMesh> WeaponModel;

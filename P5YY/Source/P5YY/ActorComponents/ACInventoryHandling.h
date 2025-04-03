@@ -12,6 +12,7 @@ DECLARE_MULTICAST_DELEGATE(FOnInventoryUpdated);
 UENUM(BlueprintType)
 enum class EItemAddResult : uint8
 {
+	None UMETA(DisplayName = "None"),
 	FailedToAddItem UMETA(DisplayName = "No item was added"),
 	AddedPartialItem UMETA(DisplayName = "Only partial item was added"),
 	AllItemAdded UMETA(DisplayName = "All items added")
@@ -28,9 +29,9 @@ struct FItemAddResult
 	};*/
 
 	UPROPERTY(BlueprintReadOnly, Category="Item add result")
-	EItemAddResult ItemAddResult;
+	EItemAddResult ItemAddResult = EItemAddResult::None;
 	UPROPERTY(BlueprintReadOnly, Category="Item add result")
-	int32 ActualAmountAdded;
+	int32 ActualAmountAdded = 0;
 	UPROPERTY(BlueprintReadOnly, Category="Item add result")
 	FText ResultMessage;
 	
