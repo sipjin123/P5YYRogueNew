@@ -54,6 +54,8 @@ void USTTChaseTarget::OnReturnToPatrolCompleted(FAIRequestID RequestId, EPathFol
 void USTTChaseTarget::OnChaseCompleted(FAIRequestID RequestId, EPathFollowingResult::Type RequestStatus)
 {
 	GetDistanceFromTarget();
+	UE_LOG(LogTemp, Log, TEXT("CHASE COMPLETED : DIstance from Target: %f AttackRadius : %f"), DistanceToTarget, AttackRadius);
+
 	if(RequestStatus == EPathFollowingResult::Success)
 	{
 		FinishTask();
@@ -62,8 +64,6 @@ void USTTChaseTarget::OnChaseCompleted(FAIRequestID RequestId, EPathFollowingRes
 	{
 		FinishTask(false);
 	}
-
-	UE_LOG(LogTemp, Log, TEXT("CHASE COMPLETED"));
 }
 
 EStateTreeRunStatus USTTChaseTarget::EnterState(FStateTreeExecutionContext& Context,
@@ -71,13 +71,6 @@ EStateTreeRunStatus USTTChaseTarget::EnterState(FStateTreeExecutionContext& Cont
 {
 	UE_LOG(LogTemp, Log, TEXT("ENTERED CHASE"));
 	
-	float distance = GetDistanceFromTarget();
-	if(distance < StrafeRadius)
-	{
-		UE_LOG(LogTemp, Log, TEXT("CHASE COMPLETED"));
-		return EStateTreeRunStatus::Succeeded;
-	}
-
 	ReturningToPatrol = false;
 	CastedActor = Cast<AAAICharacter>(OwnerActor);
 	OwnerController = Cast<AAIController>(CastedActor->Controller);
@@ -88,6 +81,12 @@ EStateTreeRunStatus USTTChaseTarget::EnterState(FStateTreeExecutionContext& Cont
 		return EStateTreeRunStatus::Failed;
 	}
 
+	GetDistanceFromTarget();
+	if(DistanceToTarget < AttackRadius)
+	{
+		return EStateTreeRunStatus::Succeeded;
+	}
+	
 	GetDistanceFromOrigin();
 
 	if(!ReturningToPatrol)

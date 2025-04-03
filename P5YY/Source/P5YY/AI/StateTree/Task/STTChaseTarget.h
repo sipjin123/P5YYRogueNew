@@ -29,8 +29,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Input")
 	float MaxChaseDistance;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Input")
-	float StrafeRadius;
+
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Output")
 	float DistanceToTarget;
