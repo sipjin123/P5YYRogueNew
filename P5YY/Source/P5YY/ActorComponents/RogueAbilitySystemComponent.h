@@ -13,5 +13,11 @@ UCLASS()
 class P5YY_API URogueAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
-	
+
+public:
+	TMap<int32, FTimerHandle> AbilityCooldownTimers;
+	UFUNCTION(BlueprintCallable)
+	void RegisterComboTag(int32 ComboSection);
+	UFUNCTION()
+	void CloseComboWindow(int32 CooldownId);
 };
