@@ -121,6 +121,14 @@ void AProtagonistChar::BeginPlay()
 		DialogueBase = CreateWidget<UDialogueWidgetBase>(UGameplayStatics::GetPlayerController(GetWorld(), 0), DialogueClass);
 		//DialogueBase->AddToViewport();
 	}
+	
+	if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PC->GetLocalPlayer()))
+		{
+			Subsystem->AddMappingContext(DefaultMappingContext, 0);
+		}
+	}
 }
 
 void AProtagonistChar::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -253,7 +261,7 @@ void AProtagonistChar::StartupGameplayAbilities()
 {
 	check (AbilitySystemComponent);
 
-	if (GetLocalRole() == ROLE_Authority && !bAbilitiesInitialized && RogueGameplayAbilities.Num() > 0)
+	if (GetLocalRole() == ROLE_Authority && !bAbilitiesInitialized && RogueGameplayAbilities.Num() > 0 && UseCPPAbilities)
 	{
 		// Grant active abilities only for the server
 		for (TSubclassOf<URogueGameplayAbility>& StartupAbilityEntry : RogueGameplayAbilities)

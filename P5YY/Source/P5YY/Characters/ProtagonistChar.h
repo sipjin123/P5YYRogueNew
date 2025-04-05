@@ -21,6 +21,8 @@
 
 DECLARE_LOG_CATEGORY_EXTERN(CharacterLog, Log, All);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAttributeChange, int, AttributeValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FInvulnerableChange, bool, InvulnerableValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStunChange, bool, StunValue);
 
 // Forward Declaration
 class URogueAbilitySystemComponent;
@@ -107,6 +109,9 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 		bool CanLookUp;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+		bool UseCPPAbilities = false;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 		bool CanControlCamera;
@@ -254,6 +259,12 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Attribute callbacks")
 	FAttributeChange OnHealthChange;
 
+	UPROPERTY(BlueprintAssignable, Category = "Stat callbacks")
+	FInvulnerableChange OnInvulnerableChange;
+	
+	UPROPERTY(BlueprintAssignable, Category = "Stat callbacks")
+	FStunChange OnStunChange;
+	
 	// The callback to be registered within AbilitySystem.
 	void OnHealthUpdated(const FOnAttributeChangeData& Data) const;
 };

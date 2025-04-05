@@ -17,6 +17,7 @@ enum class ERogueAbilityInputID : uint8
 	Power,
 	Special,
 	Ultimate,
+    MAX UMETA(Hidden)
 };
 
 struct RogueData
