@@ -267,4 +267,7 @@ public:
 	
 	// The callback to be registered within AbilitySystem.
 	void OnHealthUpdated(const FOnAttributeChangeData& Data) const;
+	
+	UFUNCTION(BlueprintCallable)
+	FVector2D GetCameraRelativeInput() const;
 };

@@ -508,3 +508,21 @@ void AProtagonistChar::OnHealthUpdated(const FOnAttributeChangeData& Data) const
 	OnHealthChange.Broadcast(Data.NewValue);
 }
 #pragma endregion
+
+FVector2D AProtagonistChar::GetCameraRelativeInput() const
+{
+	if (AController* MyController  = GetController())
+	{
+		const FRotator ControlRot = MyController ->GetControlRotation();
+		const FVector Forward = FRotationMatrix(ControlRot).GetUnitAxis(EAxis::X);
+		const FVector Right = FRotationMatrix(ControlRot).GetUnitAxis(EAxis::Y);
+
+		const FVector Input = GetCharacterMovement()->GetLastInputVector(); // still world-space
+		const float ForwardAmount = FVector::DotProduct(Forward, Input);
+		const float RightAmount = FVector::DotProduct(Right, Input);
+
+		return FVector2D(ForwardAmount, RightAmount);
+	}
+
+	return FVector2D::ZeroVector;
+}
