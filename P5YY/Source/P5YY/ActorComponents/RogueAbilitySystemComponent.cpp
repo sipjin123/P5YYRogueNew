@@ -195,7 +195,7 @@ void URogueAbilitySystemComponent::AbilityInputTagPressed(const FGameplayTag& In
 			AbilitySpecInputPressed(AbilitySpec);
 			if (AbilitySpec.IsActive())
 			{
-				UE_LOG(LogTemp, Log, TEXT("Ability Spec Activated: %s"), *InputTag.ToString())
+				//UE_LOG(LogTemp, Log, TEXT("Ability Spec Activated: %s"), *InputTag.ToString())
 				//InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, AbilitySpec.Handle, AbilitySpec.ActivationInfo.GetActivationPredictionKey());
 			}
 		}
@@ -323,7 +323,7 @@ void URogueAbilitySystemComponent::RemoveTagsInCategory(UAbilitySystemComponent*
 	{
 		if (Tag.MatchesTag(ParentTag))  // Check if the tag is within the subcategory
 		{
-		UE_LOG(LogTemp,Warning,TEXT("MARK Tag:{%s}"), *Tag.ToString());
+		//UE_LOG(LogTemp,Warning,TEXT("MARK Tag:{%s}"), *Tag.ToString());
 			TagsToRemove.Add(Tag);
 		}
 	}
@@ -344,7 +344,7 @@ void URogueAbilitySystemComponent::Multicast_NotifyTagsRemoved_Implementation(
 
 	for (const FGameplayTag& Tag : TagsToRemove)
 	{
-		UE_LOG(LogTemp,Warning,TEXT("Removed Tag:{%s}"), *Tag.ToString());
+		//UE_LOG(LogTemp,Warning,TEXT("Removed Tag:{%s}"), *Tag.ToString());
 		AbilitySystemComponent->RemoveLooseGameplayTag(Tag);
 	}
 }

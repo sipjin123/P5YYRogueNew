@@ -42,7 +42,7 @@ bool UBMathLibraryLinker::importDLL(FString folder, FString name)
     
     if (FPaths::FileExists(filePath))
     {
-        UE_LOG(LogTemp, Warning, TEXT("New path is: {%s}"), *filePath);
+        //UE_LOG(LogTemp, Warning, TEXT("New path is: {%s}"), *filePath);
         v_dllHandle = FPlatformProcess::GetDllHandle(*filePath); // Retrieve the DLL.
         if (v_dllHandle != NULL)
         {

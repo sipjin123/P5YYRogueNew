@@ -26,7 +26,6 @@ protected:
 public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-	UFUNCTION(BlueprintCallable, Category = "State Tree")
-	void SetStateTree(UStateTree* InStateTree);
+	UFUNCTION(BlueprintCallable)
+	void SetRogueStateTree(UStateTree* InStateTree);
 };

@@ -24,7 +24,7 @@ EBTNodeResult::Type UBTTask_TraverseTo::ExecuteTask(UBehaviorTreeComponent& Owne
 	FVector newLocation = AIController->GetBlackboardComponent()->GetValueAsVector(MyBlackboardKey.SelectedKeyName);
 	DrawDebugSphere(GetWorld(), FVector(newLocation.X, newLocation.Y, newLocation.Z), DrawRadius, 16, FColor::Orange, false, Duration);
 	
-	UE_LOG(LogTemp, Warning, TEXT("AI_Task_Traverse to: {%f}-{%f}-{%f}"), newLocation.X, newLocation.Y, newLocation.Z);
+	//UE_LOG(LogTemp, Warning, TEXT("AI_Task_Traverse to: {%f}-{%f}-{%f}"), newLocation.X, newLocation.Y, newLocation.Z);
 	Super::ExecuteTask(OwnerComp, NodeMemory);
 	//FinishLatentTask(OwnerComp, EBTNodeResult::InProgress);
 	return EBTNodeResult::InProgress;

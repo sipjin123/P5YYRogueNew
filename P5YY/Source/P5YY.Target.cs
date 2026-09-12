@@ -9,7 +9,7 @@ public class P5YYTarget : TargetRules
 	{
 		Type = TargetType.Game;
         //BuildEnvironment = TargetBuildEnvironment.Unique;
-        DefaultBuildSettings = BuildSettingsVersion.V4;
+        DefaultBuildSettings = BuildSettingsVersion.V7;
         //DefaultBuildSettings = BuildSettingsVersion.V2;
         //IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_4;
         IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_5;

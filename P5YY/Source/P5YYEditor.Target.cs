@@ -9,7 +9,7 @@ public class P5YYEditorTarget : TargetRules
 	{
 		Type = TargetType.Editor;
         //BuildEnvironment = TargetBuildEnvironment.Unique;
-        DefaultBuildSettings = BuildSettingsVersion.V4;
+        DefaultBuildSettings = BuildSettingsVersion.V7;
         IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_5;
         //IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_4;
 		ExtraModuleNames.Add("P5YY");

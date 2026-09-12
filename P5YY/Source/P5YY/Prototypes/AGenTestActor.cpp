@@ -44,7 +44,7 @@ void AAGenTestActor::BeginPlay()
 
 void AAGenTestActor::TestCall1()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Hello:, %f"), TestQuantity);
+	//UE_LOG(LogTemp, Warning, TEXT("Hello:, %f"), TestQuantity);
 }
 
 void AAGenTestActor::RaycastTarget()
@@ -91,8 +91,8 @@ void AAGenTestActor::RaycastTarget()
 	float LifeTime = 5.0f;
 	DrawDebugLine(GetWorld(), Start, End, FColor::Orange, false, LifeTime);
 
-	UE_LOG(LogTemp, Warning, TEXT("TestQuantityF: %f"), TestQuantity);
-	UE_LOG(LogTemp, Warning, TEXT("is hit: %s"), (bIsHit? TEXT("got hit") : TEXT("failed hit")));
+	//UE_LOG(LogTemp, Warning, TEXT("TestQuantityF: %f"), TestQuantity);
+	//UE_LOG(LogTemp, Warning, TEXT("is hit: %s"), (bIsHit? TEXT("got hit") : TEXT("failed hit")));
 
 	GetOverlapActorFunc();
 	GetOverlapActorRadiusFunc();
@@ -103,7 +103,7 @@ void AAGenTestActor::GetOverlapActorFunc() {
 	GetOverlappingActors(Result);//, AClassYouLookingFor::StaticClass()
 
 	float NearestDistance = -1;
-	UE_LOG(LogTemp, Warning, TEXT("Total Overlap Component -> %d"), Result.Num());
+	//E_LOG(LogTemp, Warning, TEXT("Total Overlap Component -> %d"), Result.Num());
 	for (int i = 0; i < Result.Num(); i++) {
 		FVector OriginLoc = GetActorLocation();
 		FVector TargetLoc = Result[i]->GetActorLocation();
@@ -114,14 +114,14 @@ void AAGenTestActor::GetOverlapActorFunc() {
 		}
 		else if (Distance < NearestDistance) {
 			NearestDistance = Distance;
-			UE_LOG(LogTemp, Warning, TEXT("Overwriting the nearest distance by index:{%d}"), i);
+			//UE_LOG(LogTemp, Warning, TEXT("Overwriting the nearest distance by index:{%d}"), i);
 		}
 #if WITH_EDITOR
-		UE_LOG(LogTemp, Warning, TEXT("%s --> %f"), *Result[i]->GetActorLabel(), Distance);
+		//UE_LOG(LogTemp, Warning, TEXT("%s --> %f"), *Result[i]->GetActorLabel(), Distance);
 #endif
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("The nearest distance is: %f"), NearestDistance);
+//UE_LOG(LogTemp, Warning, TEXT("The nearest distance is: %f"), NearestDistance);
 }
 
 void AAGenTestActor::GetOverlapActorRadiusFunc() {
@@ -153,7 +153,7 @@ void AAGenTestActor::GetOverlapActorRadiusFunc() {
 	UKismetSystemLibrary::SphereOverlapActors(GetWorld(), sphereSpawnLocation, Radius, traceObjectTypes, seekClass, IgnoreActors, Result);
 
 	float NearestDistance = -1;
-	UE_LOG(LogTemp, Warning, TEXT("Total Overlap --> %d"), Result.Num());
+	//UE_LOG(LogTemp, Warning, TEXT("Total Overlap --> %d"), Result.Num());
 	for (int i = 0; i < Result.Num(); i++) {
 		FVector OriginLoc = GetActorLocation();
 		FVector TargetLoc = Result[i]->GetActorLocation();

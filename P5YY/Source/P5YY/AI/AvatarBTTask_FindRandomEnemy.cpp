@@ -43,7 +43,7 @@ EBTNodeResult::Type UAvatarBTTask_FindRandomEnemy::ExecuteTask(UBehaviorTreeComp
 	// Signal the BehaviorTreeComponent that the task finished with success
 	FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
 
-	UE_LOG(LogTemp, Warning, TEXT("FindRandEnemy Task Node:, %f"), SearchRadius);
+	//UE_LOG(LogTemp, Warning, TEXT("FindRandEnemy Task Node:, %f"), SearchRadius);
 	
 	Super::ExecuteTask(OwnerComp, NodeMemory);
 	return EBTNodeResult::Succeeded;
@@ -77,5 +77,5 @@ void UAvatarBTTask_FindRandomEnemy::OnGameplayTaskDeactivated(UGameplayTask& Tas
 
 void UAvatarBTTask_FindRandomEnemy::TakeDmg_ImplementationVer2_Implementation(int32 Damage) {
 	// Needs to add "_Implementation" to differentiate c++ and BP versions
-	UE_LOG(LogTemp, Warning, TEXT("Event Called: Damage is: {%d}"), Damage);
+	//UE_LOG(LogTemp, Warning, TEXT("Event Called: Damage is: {%d}"), Damage);
 }

@@ -188,7 +188,7 @@ void AProtagonistChar::TraceInteraction()
 					if (Distance < InteractionDistancce)
 					{
 						FString ObjName = TraceHit.GetActor()->GetName();
-						UE_LOG(LogTemp, Warning, TEXT("Looking at Obj:[%s]"), *ObjName);
+						//UE_LOG(LogTemp, Warning, TEXT("Looking at Obj:[%s]"), *ObjName);
 					}
 				}
 			}
@@ -215,7 +215,7 @@ void AProtagonistChar::TraceInteraction()
 					if (Distance < InteractionDistancce)
 					{
 						FString ObjName = TraceHit.GetActor()->GetName();
-						UE_LOG(LogTemp, Warning, TEXT("Looking at Obj:[%s]"), *ObjName);
+						//UE_LOG(LogTemp, Warning, TEXT("Looking at Obj:[%s]"), *ObjName);
 					}
 				}
 			}
@@ -247,12 +247,13 @@ void AProtagonistChar::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 	if (AbilitySystemComponent && InputComponent)
 	{
 		const FGameplayAbilityInputBinds Binds(
-					"Confirm", 
-					"Cancel", 
-					"/Script/P5YY.ERogueAbilityInputID",//"ERogueAbilityInputID", Fixes Error: {Short type name provided for TryFindType}
-					static_cast<int32>(ERogueAbilityInputID::Confirm),
-					static_cast<int32>(ERogueAbilityInputID::Cancel)
-			);
+			FString(TEXT("Confirm")),
+			FString(TEXT("Cancel")),
+			FTopLevelAssetPath(TEXT("/Script/P5YY"), TEXT("ERogueAbilityInputID")),
+			static_cast<int32>(ERogueAbilityInputID::Confirm),
+			static_cast<int32>(ERogueAbilityInputID::Cancel)
+		);
+
 		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, Binds);
 	}
 }
@@ -432,17 +433,18 @@ void AProtagonistChar::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
 
-	// Client Side GAS init
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+
 	if (AbilitySystemComponent && InputComponent)
 	{
 		const FGameplayAbilityInputBinds Binds(
-					"Confirm", 
-					"Cancel", 
-					"/Script/P5YY.ERogueAbilityInputID",//"ERogueAbilityInputID", Fixes Error: {Short type name provided for TryFindType}
-					static_cast<int32>(ERogueAbilityInputID::Confirm),
-					static_cast<int32>(ERogueAbilityInputID::Cancel)
-			);
+			"Confirm",
+			"Cancel",
+			FTopLevelAssetPath(TEXT("/Script/P5YY"), TEXT("ERogueAbilityInputID")),
+			static_cast<int32>(ERogueAbilityInputID::Confirm),
+			static_cast<int32>(ERogueAbilityInputID::Cancel)
+		);
+
 		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, Binds);
 	}
 }

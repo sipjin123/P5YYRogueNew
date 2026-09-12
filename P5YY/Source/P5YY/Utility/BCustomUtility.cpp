@@ -72,7 +72,7 @@ TArray<AActor*> UBCustomUtility::GetActorsWithinRadius(FVector Origin, float Rad
             AActor* DetectedActor = Result.GetActor();
             if (DetectedActor)//&& DetectedActor->ActorHasTag("Enemy")) // Check if it's an enemy
             {
-                UE_LOG(LogTemp, Warning, TEXT("Enemy detected: %s"), *DetectedActor->GetName());
+                //UE_LOG(LogTemp, Warning, TEXT("Enemy detected: %s"), *DetectedActor->GetName());
             	OutActors.Add(DetectedActor);
             }
         }

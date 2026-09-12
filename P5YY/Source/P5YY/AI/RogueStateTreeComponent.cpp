@@ -20,7 +20,7 @@ void URogueStateTreeComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
-void URogueStateTreeComponent::SetStateTree(UStateTree* InStateTree)
+void URogueStateTreeComponent::SetRogueStateTree(UStateTree* InStateTree)
 {
 	StateTreeRef.SetStateTree(InStateTree);
 	InitializeComponent();

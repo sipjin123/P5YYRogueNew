@@ -49,14 +49,14 @@ EStateTreeRunStatus USTTIsPlayerSighted::EnterState(FStateTreeExecutionContext& 
 
 void USTTIsPlayerSighted::OnPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 {
-	UE_LOG(LogTemp, Log, TEXT("OnPerceptionUpdated ActorName: %s IsSuccessful: %s"), *Actor->GetName(), Stimulus.WasSuccessfullySensed() ? TEXT("TRUE") : TEXT("FALSE"));
+	//UE_LOG(LogTemp, Log, TEXT("OnPerceptionUpdated ActorName: %s IsSuccessful: %s"), *Actor->GetName(), Stimulus.WasSuccessfullySensed() ? TEXT("TRUE") : TEXT("FALSE"));
 
 	HandleSightPerception(Actor, Stimulus);
 }
 
 void USTTIsPlayerSighted::OnTargetPerceptionForgotten(AActor* Actor)
 {
-	UE_LOG(LogTemp, Log, TEXT("OnTargetPerceptionForgotten %s"), *Actor->GetName());
+	//UE_LOG(LogTemp, Log, TEXT("OnTargetPerceptionForgotten %s"), *Actor->GetName());
 
 	TargetActor = nullptr;
 }

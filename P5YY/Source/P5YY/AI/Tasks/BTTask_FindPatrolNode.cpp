@@ -31,12 +31,12 @@ EBTNodeResult::Type UBTTask_FindPatrolNode::ExecuteTask(UBehaviorTreeComponent& 
 	{
 		AIController->GetBlackboardComponent()->SetValueAsVector(MyBlackboardKey.SelectedKeyName,
 			Location.Location);
-		UE_LOG(LogTemp, Warning, TEXT("Search Radius Patrol Node: [%f] -> [{%f}]-[{%f}]"), Location.Location.X, Location.Location.Y, Location.Location.Z);
+		//UE_LOG(LogTemp, Warning, TEXT("Search Radius Patrol Node: [%f] -> [{%f}]-[{%f}]"), Location.Location.X, Location.Location.Y, Location.Location.Z);
 	DrawDebugSphere(GetWorld(), FVector(Location.Location.X, Location.Location.Y, Location.Location.Z), 10, 16, FColor::Blue, false, 5);
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Search Radius Patrol Node: [%f] FAIL"), MaxSearchRadius);
+		//UE_LOG(LogTemp, Warning, TEXT("Search Radius Patrol Node: [%f] FAIL"), MaxSearchRadius);
 	}
 
 	// Signal the BehaviorTreeComponent that the task finished with success
